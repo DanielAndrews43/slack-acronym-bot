@@ -1,0 +1,34 @@
+{
+  "name": "acronym",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon --watch ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielAndrews43/acronym.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielAndrews43/acronym/issues"
+  },
+  "homepage": "https://github.com/DanielAndrews43/acronym#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "firebase": "^6.2.0",
+    "path": "^0.12.7",
+    "raw-body": "^2.4.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "foreman": "^3.0.1",
+    "nodemon": "^1.19.1"
+  }
+}

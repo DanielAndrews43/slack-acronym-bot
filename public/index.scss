@@ -1,0 +1,210 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.logolink {
+  width: 50px;
+  height: 50px;
+}
+
+.section-title {
+  font-size: 28px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: rgb(50, 50, 50);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bold {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#nav {
+  height: 50px;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px;
+  border-color: rgb(50, 50, 50);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  position: absolute;
+
+  .left {
+    width: 50%;
+    padding-left: 20px;
+    align-items: center;
+    justify-content: flex-start;
+
+    .logolink {
+      width: 50px;
+      height: 50px;
+
+      .logo {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+  .right {
+    width: 50%;
+    padding-right: 10px;
+    align-items: center;
+    justify-content: flex-end;
+
+    .nav-item {
+      padding-right: 10px;
+      padding-left: 10px;
+      color: rgb(50, 50, 50);
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif;
+    }
+    .nav-item:hover {
+      opacity: 0.8;
+    }
+    .nav-item:visited {
+      color: rgb(50, 50, 50);
+    }
+  }
+}
+
+#head {
+  width: 100%;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  background-image: url('img/cat.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  h1, h3 {
+    color: white;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+  }
+  h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-size: 28px;
+  }
+}
+
+#features {
+  width: 100%;
+  min-height: 500px;
+  justify-content: center;
+  align-items: center;
+  background-color: #9DABDD;
+
+  #features-container {
+    width: 90%;
+    max-width: 1200px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .feature {
+      width: 200px;
+      min-width: 200px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      align-items: center;
+
+      .icon {
+      }
+      .title, .subtitle {
+        color: rgb(50, 50, 50);
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+      }
+      .title {
+        font-size: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .subtitle {
+        line-height: 22px;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+#commands {
+  width: 100%;
+  min-height: 500px;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+
+  #commands-container {
+    width: 90%;
+    max-width: 1200px;
+    padding-top: 20px;
+    align-items: space-between;
+    justify-content: center;
+
+    .command {
+      width: 100%;
+
+      .left, .middle, .right {
+        flex: 1;
+        padding-left: 5px;
+        padding-right: 5px;
+        color: rgb(50, 50, 50);
+        text-align: left;
+        font-family: 'Roboto', sans-serif;
+      }
+    }
+    .command:not(:first-child) {
+      padding-top: 10px;
+      margin-top: 10px;
+      border-top: 1px solid rgba(0, 0, 0, 0.3);
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Slackronym Bot</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="public/index.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div id="nav" class="flex-row">
+      <div class="left">
+        <a href="./" class="logolink"><img class="logo" src="public/img/logo.png"></a>
+      </div>
+      <div class="right flex-row">
+        <a class="nav-item" href="./">Home</a>
+        <a class="nav-item" href="https://slack.com/oauth/authorize?client_id=652739857953.658601372420&scope=incoming-webhook,commands,chat:write:bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"></a>
+      </div>
+    </div>
+
+    <div id="head" class="flex-column">
+      <h1>Acronym Bot</h1>
+      <h3>Crowdsource Company Knowledge</h3>
+    </div>
+
+    <div id="features" class="flex-column"?>
+      <h2 class="section-title">Features</h2>
+      <div id="features-container" class="flex-row">
+        <div class="feature flex-column">
+          <img class="icon" src="public/img/dictionary.png" />
+          <h3 class="title">Define Words</h3>
+          <div class="subtitle">Quickly define words by using our /explain command followed by the word and the definition.</div>
+        </div>
+        <div class="feature flex-column">
+          <img class="icon" src="public/img/find.png" />
+          <h3 class="title">Explain words</h3>
+          <div class="subtitle">Can't find the definition of a word? Find the definition by typing /explain followed by the word.</div>
+        </div>
+        <div class="feature flex-column">
+          <img class="icon" src="public/img/people.png" />
+          <h3 class="title">Crowdsourced</h3>
+          <div class="subtitle">If a word hasn't been defined yet, the bot will quickly find answers by posting to a public channel.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="commands" class="flex-column">
+      <h2 class="section-title">Commands</h2>
+      <div id="commands-container" class="flex-column">
+        <div class="command flex-row">
+          <div class="left bold">Command</div>
+          <div class="middle bold">Description</div>
+          <div class="right bold">Example</div>
+        </div>
+        <div class="command flex-row">
+          <div class="left">/explain [word]</div>
+          <div class="middle">Finds the definition to a word</div>
+          <div class="right">/explain npm</div>
+        </div>
+        <div class="command flex-row">
+          <div class="left">/explain [word] [definition]</div>
+          <div class="middle">Creates a new definition for a word</div>
+          <div class="right">/explain npm node package manager</div>
+        </div>
+        <div class="command flex-row">
+          <div class="left">/explain remove [word]</div>
+          <div class="middle">Removes all definitions for a word</div>
+          <div class="right">/explain remove npm</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
