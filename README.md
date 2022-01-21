@@ -18,8 +18,11 @@
 The bot currently has a few features, getting explanations and then defining new ones
 
 `/explain <acronym>` will pull the explanations from the server
+
 `/explain <acronym> <definition>` will add a new definition for the acronym
+
 `/explain listall` will list all the acronyms of the bot (up to max HTTP size)
+
 `/explain remove <acronym>` will remove all definitions for the acronym specified
 
 You can also create multiple definitions in a single Slack message by writing each command on a new line. The bot will read each line as a separate command.
