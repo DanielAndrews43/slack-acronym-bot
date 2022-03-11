@@ -4,7 +4,7 @@
 
 1. npm install
 2. download ngrok https://ngrok.com/download
-3. ./ngrok http 8000
+3. ngrok http 8000
 4. copy the link to the server (https://randomstuff.ngrok.com)
 5. Go to slack bots (https://api.slack.com/apps)
 6. Go to your apps in top right corner of screen
