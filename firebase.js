@@ -23,6 +23,10 @@ const getAcronyms = (team_id) =>
 const getAcronym = (acronym, team_id) =>
   db.ref(`acronyms/${team_id}/${acronym}`)
 
+const getDefinition = (acronym, definition, team_id) => {
+  db.ref(`acronyms/${team_id}/${acronym}`, equalTo(definition))
+}
+
 const saveAcronym = (acronym, definition, team_id) => {
   getAcronym(acronym, team_id).once('value', snapshot => {
     const definitions = snapshot.val()
@@ -36,6 +40,25 @@ const deleteAcronym = (acronym, team_id) => {
   getAcronym(acronym, team_id).remove()
 }
 
+const deleteDuplicateDefinitions = (acronym, team_id) => {
+  var numRemoved = 0
+  getAcronym(acronym, team_id).once('value', snapshot => {
+    const oldDefinitions = snapshot.val()
+    // thanks to https://stackoverflow.com/a/46741042 for help with this code
+    const newDefinitions = oldDefinitions
+      .reduce((definitions, definition) => {
+        var normalize = def => def.toLowerCase()
+        var normalizedDefinition = normalize(definition)
+        if (definitions.every(otherElement => normalize(otherElement) !== normalizedDefinition))
+          definitions.push(definition)
+        return definitions
+      }, [])
+    getAcronyms(team_id).update({ [acronym]: newDefinitions })
+    numRemoved = oldDefinitions.length - newDefinitions.length
+  })
+  return numRemoved
+}
+
 const getTeamInfo = (team_id) =>
   db.ref(`tokens/${team_id}`)
 
@@ -46,9 +69,11 @@ const saveTeamInfo = (team_id, channel_id, token) =>
 module.exports = {
   getAcronym,
   getAcronyms,
+  getDefinition,
   saveAcronym,
   getTeamInfo,
   saveTeamInfo,
   addOneTransaction,
   deleteAcronym,
+  deleteDuplicateDefinitions,
 }

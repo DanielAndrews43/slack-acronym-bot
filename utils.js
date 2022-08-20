@@ -7,7 +7,9 @@ const {
   deleteAcronym,
   getTeamInfo,
   getAcronym,
-  getAcronyms
+  getAcronyms,
+  getDefinition,
+  deleteDuplicateDefinitions
 } = require('./firebase')
 
 const NO_DEFINITION_ERROR_MESSAGE = (acronym) => `Sorry, _${acronym}_ has not been defined yet!\nYou can define a new acronym using _/explain ${acronym} definition_`
@@ -15,7 +17,7 @@ const THANK_YOU_MESSAGE = (acronym) => `Thanks for your definition of _${acronym
 const NEEDS_DEFINITION_MESSAGE = (acronym, username) => `${username} needs to define *_${acronym}_*!\nYou can define a new acronym using _/explain ${acronym} definition_`
 const WAS_DEFINED_MESSAGE = (acronym, username, definition) => `${username} just defined _${acronym}_ as\n>${definition}`
 const ACRONYM_DELETED_MESSAGE = acronym => `You have successfully removed the definition(s) for _${acronym}_`
-const LISTALL_MESSAGE = message => `This is a list of all definitions for your Slack workspace. Copy and paste it into your next workspace to import the data.\n\n${message}`
+const LISTALL_MESSAGE = (message) => `This is a list of all definitions for your Slack workspace. Copy and paste it into your next workspace to import the data.\n\n${message}`
 const DEFINITION_MESSAGE = (acronym, definitions) => {
   let message = "*" + acronym + ":*"
   definitions.map((definition, index) => {
@@ -24,6 +26,8 @@ const DEFINITION_MESSAGE = (acronym, definitions) => {
 
   return message
 }
+const DEFINITION_ALREADY_EXISTS_MESSAGE = (acronym) => `This definition already exists for _${acronym}_`
+const DEDUPE_SUCCESS_MESSAGE = (num_acronyms, num_definitions) => `You have successfully deduped the list of definitions!\nIn total, ${num_definitions} definitions were deleted from ${num_acronyms} acronyms.`
 
 const postToChannelUrl = (text, channel_id, token) => {
   return (
@@ -68,6 +72,9 @@ const handleDefinition = async (input, appId, username, res) => {
   if (acronym === 'listall') {
     allAcronymHelper(res, appId)
     return
+  } else if (acronym === 'dedupeall') {
+    dedupeAllAcronymsHelper(res, appId)
+    return
   }
   
   const acronymSnapshot = await getAcronym(acronym, appId).once('value')
@@ -101,10 +108,17 @@ const postDefinition = (res, acronym, definitions, channel_id, username, token) 
 }
 
 const newDefinition = (res, acronym, definition, channel_id, token, username, app_id) => {
-  saveAcronym(acronym, definition, app_id)
-  postToChannel(WAS_DEFINED_MESSAGE(acronym, username, definition), channel_id, token)
-  addOneTransaction('acronymsDefined')
-  res.json({ text: THANK_YOU_MESSAGE(acronym) })
+  // Checking whether the exact definition for this acronym already exists first
+  const definitionSnapshot = await getDefinition(acronym, definition, app_id).once('value')
+  const definitionFromDB = definitionSnapshot.val()
+  if (definitionFromDB.toLowerCase() === definition.toLowerCase()) {
+    res.json({ text: DEFINITION_ALREADY_EXISTS_MESSAGE(acronym) })
+  } else {
+    saveAcronym(acronym, definition, app_id)
+    postToChannel(WAS_DEFINED_MESSAGE(acronym, username, definition), channel_id, token)
+    addOneTransaction('acronymsDefined')
+    res.json({ text: THANK_YOU_MESSAGE(acronym) })
+  }
 }
 
 const deleteAcronymHelper = (res, acronym, app_id) => {
@@ -123,6 +137,22 @@ const allAcronymHelper = async (res, app_id) => {
   .join('\n')
 
   res.json({ text: LISTALL_MESSAGE(message) })
+}
+
+const dedupeAllAcronymsHelper = async (res, app_id) => {
+  addOneTransaction('dedupedAcronyms')
+  const acronymsSnapshot = await getAcronyms(app_id).once('value')
+  var numDeletedDefinitions = 0
+  var numDedupedAcronyms = 0
+  acronymsSnapshot.val()
+  .forEach(acronym => {
+    numDeleted = deleteDuplicateDefinitions(acronym, app_id)
+    if (numDeleted > 0) {
+      numDeletedDefinitions += numDeleted
+      numDedupedAcronyms++
+    }
+  })
+  res.json({ text: DEDUPE_SUCCESS_MESSAGE(numDedupedAcronyms, numDeletedDefinitions) })
 }
 
 exports.oathOptions = code => {
