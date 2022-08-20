@@ -4,7 +4,7 @@
 
 1. npm install
 2. download ngrok https://ngrok.com/download
-3. ngrok http 8000
+3. ./ngrok http 8000
 4. copy the link to the server (https://randomstuff.ngrok.com)
 5. Go to slack bots (https://api.slack.com/apps)
 6. Go to your apps in top right corner of screen
@@ -25,8 +25,6 @@ The bot currently has a few features, getting explanations and then defining new
 
 `/explain remove <acronym>` will remove all definitions for the acronym specified
 
-`/explain dedupeall` will remove all duplicate acronym definitions
-
 You can also create multiple definitions in a single Slack message by writing each command on a new line. The bot will read each line as a separate command.
 
 ## Features to work on
@@ -35,5 +33,5 @@ You can also create multiple definitions in a single Slack message by writing ea
 - [x] Save the definitions to a database so they persist
 - [x] Post to a channel when the definition does not exist so people can be notified to define it
 - [x] Post to a channel when something is defined so people can add or remove definitions
-- [x] Add ability to remove definitions
+- [ ] Add ability to remove definitions
 - [ ] Add ability to post a definition to a channel
