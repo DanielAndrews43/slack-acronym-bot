@@ -118,7 +118,7 @@ const postDefinition = (
   token
 ) => {
   addOneTransaction("acronymsExplained");
-  if (definitions?.length) {
+  if (definitions && definitions.length) {
     addOneTransaction("acronymsExplainedSuccess");
     res.json({ text: DEFINITION_MESSAGE(acronym, definitions) });
   } else {
